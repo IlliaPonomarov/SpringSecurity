@@ -19,6 +19,11 @@ public class MainController {
         return "hello";
     }
 
+    @GetMapping("/admin")
+    public String adminPage(){
+        return "admin|";
+    }
+
     @GetMapping("/show")
     public String show(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
