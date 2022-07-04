@@ -20,8 +20,16 @@
         <div th:if="${param.error}" style="color: red">
             Неправильные Имя или Пароль
         </div>
-
     </form>
+
+<hr><br/>
+<b>
+    <a th:href="@{/auth/registration}">
+        <p>
+            Sing Up
+        </p>
+    </a>
+</b>
 
 </body>
 </html>

@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ua.ponomarov.illia.springsecuritycourse.service.PersonDetailsService;
@@ -25,7 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     // setting authentication
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(personDetailsService);
+        auth.userDetailsService(personDetailsService)
+        .passwordEncoder(getPasswordEncoder());
     }
 
     @Override
@@ -33,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http.csrf().disable()
                 .authorizeRequests()
 
-                .antMatchers("/auth/login", "/error")
+                .antMatchers("/auth/login", "/error", "/auth/registration")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -44,12 +46,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
                 .defaultSuccessUrl("/hello", true)
-                .failureUrl("/auth/login?error");
+                .failureUrl("/auth/login?error")
+
+                .and()
+
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/auth/login")
+        ;
 
     }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }

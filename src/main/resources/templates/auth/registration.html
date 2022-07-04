@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+</head>
+<body>
+
+
+<form name="f" th:method="post" th:action="@{/auth/registration}" th:object="${person}">
+
+  <label for="username">Введите ваше Имя:</label>
+  <input type="text" th:field="*{username}" id="username" name="username"/>
+  <div style="color: red" th:if="${#fields.hasErrors('username')}"   th:errors="*{username}"}></div>
+  <br/>
+
+  <label for="year_of_birth">Введите ваше Год Рождения:</label>
+  <input type="text" th:field="*{year_of_birth}" id="year_of_birth" name="year_of_birth"/>
+  <div style="color: red" th:if="${#fields.hasErrors('year_of_birth')}"   th:errors="*{year_of_birth}"}></div>
+  <br/>
+
+  <label for="password">Введите ваш Пароль:</label>
+  <input type="password" th:field="*{password}" id="password" name="password"/>
+  <div style="color: red" th:if="${#fields.hasErrors('password')}"   th:errors="*{password}"}></div>
+  <br/>
+
+  <input type="submit" value="Sing Up">
+
+</form>
+
+</body>
+</html>
