@@ -30,6 +30,7 @@ public class PersonDetailsService implements UserDetailsService {
         if (person.isEmpty())
             throw new UsernameNotFoundException("User not found!");
 
+
         return new PersonDetails(person.get());
     }
 }
