@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "person")
-@NoArgsConstructor
+
 @Setter
 @Getter
 @ToString
@@ -29,6 +29,8 @@ public class Person {
     @Size(min = 2, max = 100, message = "Имя должно быть от 2 до 100 символов.")
     @Column(name = "username")
     private String username;
+
+    public Person(){}
 
 
     @Min(value = 1918, message = "Год рождения должен быть больше, чем 1918.")
